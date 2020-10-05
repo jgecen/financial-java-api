@@ -1,6 +1,12 @@
 package io.github.mariazevedo88.financialjavaapi.dto.response;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -23,7 +29,8 @@ import lombok.Setter;
 public class Response<T> {
 
 	private T data;
-	private Object errors;
+	private List<ResponseError> errors = new ArrayList<>();
+	
 	
 	/**
 	 * Method that formats an error message to the HTTP response.
@@ -37,6 +44,22 @@ public class Response<T> {
         ResponseError error = new ResponseError()
         		.setDetails(msgError)
                 .setTimestamp(LocalDateTime.now());
-        setErrors(error);
+        errors.add(error);
     }
+
+
+	public void errors(Errors failErrors) {
+		List<FieldError> fieldErrors = failErrors.getFieldErrors();
+		
+		for (FieldError objectError : fieldErrors) {
+				System.out.println("objectError.getField() != null " + objectError.getField());
+		        ResponseError error = new ResponseError()
+		        		.setDetails(objectError.getDefaultMessage())
+		                .setTimestamp(LocalDateTime.now())
+		                .setField(objectError.getField());
+		        errors.add(error);	
+			
+		}
+		
+	}
 }

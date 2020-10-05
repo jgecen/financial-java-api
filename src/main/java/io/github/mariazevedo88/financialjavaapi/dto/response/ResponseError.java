@@ -24,6 +24,9 @@ public class ResponseError {
 	@NotNull(message="Timestamp cannot be null")
 	private LocalDateTime timestamp;
 	
+	@NotNull(message="Timestamp cannot be null")
+	private String field;
+	
 	@NotNull(message="Details cannot be null")
     private String details;
 

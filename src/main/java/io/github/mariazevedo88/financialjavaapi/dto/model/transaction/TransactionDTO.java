@@ -43,22 +43,22 @@ public class TransactionDTO extends RepresentationModel<TransactionDTO> {
 	
 	private Long id;
 	
-	@NotNull(message="Nsu cannot be null")
-	@Length(min=6, message="Nsu must contain at least 6 characters")
+	@NotNull(message="Nsu não pode ser nulo")
+	@Length(min=6, message="Nsu deve conter no mínimo 6 caracteres")
 	private String nsu;
 
 	private String authorizationNumber;
 	
-	@NotNull(message="TransactionDate cannot be null")
+	@NotNull(message="TransactionDate não pode ser nulo")
 	@JsonSerialize(using = ToStringSerializer.class)
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS", locale = "en-US", timezone = "Brazil/East")
 	private LocalDateTime transactionDate;
 	
-	@NotNull(message="Amount cannot be null")
+	@NotNull(message="Amount não pode ser nulo")
 	private BigDecimal amount;
 	
-	@NotNull(message="Type cannot be null")
+	@NotNull(message="Type não pode ser nulo")
 	private TransactionTypeEnum type;
 	
 	/**
